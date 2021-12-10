@@ -80,4 +80,24 @@ public class ListApiServiceTest {
         service.getListMeetings().remove(meetingToRemove);
         Assert.assertFalse(service.getListMeetings().contains(meetingToRemove));
     }
+
+    /**
+     * Test to check if we can get an employee by name which is in a database
+     */
+    @Test
+    public void findByNameWithSuccess() throws EmployeeNotFound {
+        Assert.assertEquals(service.findByName("Arthur").getName(), "Arthur");
+    }
+
+    /**
+     * Test to check if we can get an employee by name which doesn't exist in the database
+     */
+    @Test
+    public void findByNameWithError() {
+        try {
+            service.findByName("Clément");
+        } catch (EmployeeNotFound e){
+            Assert.assertNotNull(e);
+        }
+    }
 }
