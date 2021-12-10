@@ -47,5 +47,8 @@ codes couvert/non couverts par les tests.
 ## Contributors 
 ```java
 //TODO
+Bastien LEFUMEUX
+Clément REMY
+Krysto DAGUES DE LA HELLERIE
 ```
 
