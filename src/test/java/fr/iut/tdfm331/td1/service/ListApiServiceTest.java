@@ -100,4 +100,31 @@ public class ListApiServiceTest {
             Assert.assertNotNull(e);
         }
     }
+
+    /**
+     * Test to check if the method removeMeeting is functional
+     */
+    @Test
+    public void testremoveMeeting() {
+
+        //Creation de nos employés
+        List<Employee> listEmployees = Arrays.asList(new Employee("Clément", "clement@lamzone.com", 4),
+                new Employee("Krysto", "krysto@lamzone.com", 10),
+                new Employee("Bastien", "vincent@lamzone.com", 22));
+
+        //Creeation de notre meeting
+        Meeting meetingToRemove2 = new Meeting("Réunion pour domir",
+                "Salle du g1",
+                "10/12/21",
+                "15:45",
+                "17:45",
+                "faut domir les gars.",
+                listEmployees);
+
+        service.addMeeting(meetingToRemove2);
+        Assert.assertTrue(service.getListMeetings().contains(meetingToRemove2));
+
+        service.removeMeeting(meetingToRemove2);
+        Assert.assertFalse(service.getListMeetings().contains(meetingToRemove2));
+    }
 }
