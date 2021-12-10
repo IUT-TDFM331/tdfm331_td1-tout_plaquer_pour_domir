@@ -127,4 +127,24 @@ public class ListApiServiceTest {
         service.removeMeeting(meetingToRemove2);
         Assert.assertFalse(service.getListMeetings().contains(meetingToRemove2));
     }
+
+    /**
+     * Test to check if we can get an meeting by ObjectMeeting which is in a database
+     */
+    @Test
+    public void findByObjectWithSuccess() throws MeetingNotFound {
+        Assert.assertEquals(service.findByObject("Code review").getObjectMeeting(), "Code review");
+    }
+
+    /**
+     * Test to check if we can get an meeting by ObjectMeeting which doesn't exist in the database
+     */
+    @Test
+    public void findByObjectWithError() {
+        try {
+            service.findByObject("Coffee Pause");
+        } catch (MeetingNotFound e){
+            Assert.assertNotNull(e);
+        }
+    }
 }
