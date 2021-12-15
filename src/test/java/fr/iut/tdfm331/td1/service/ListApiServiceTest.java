@@ -80,4 +80,71 @@ public class ListApiServiceTest {
         service.getListMeetings().remove(meetingToRemove);
         Assert.assertFalse(service.getListMeetings().contains(meetingToRemove));
     }
+
+    /**
+     * Test to check if we can get an employee by name which is in a database
+     */
+    @Test
+    public void findByNameWithSuccess() throws EmployeeNotFound {
+        Assert.assertEquals(service.findByName("Arthur").getName(), "Arthur");
+    }
+
+    /**
+     * Test to check if we can get an employee by name which doesn't exist in the database
+     */
+    @Test
+    public void findByNameWithError() {
+        try {
+            service.findByName("Clément");
+        } catch (EmployeeNotFound e){
+            Assert.assertNotNull(e);
+        }
+    }
+
+    /**
+     * Test to check if the method removeMeeting is functional
+     */
+    @Test
+    public void testremoveMeeting() {
+
+        //Creation de nos employés
+        List<Employee> listEmployees = Arrays.asList(new Employee("Clément", "clement@lamzone.com", 4),
+                new Employee("Krysto", "krysto@lamzone.com", 10),
+                new Employee("Bastien", "vincent@lamzone.com", 22));
+
+        //Creeation de notre meeting
+        Meeting meetingToRemove2 = new Meeting("Réunion pour domir",
+                "Salle du g1",
+                "10/12/21",
+                "15:45",
+                "17:45",
+                "faut domir les gars.",
+                listEmployees);
+
+        service.addMeeting(meetingToRemove2);
+        Assert.assertTrue(service.getListMeetings().contains(meetingToRemove2));
+
+        service.removeMeeting(meetingToRemove2);
+        Assert.assertFalse(service.getListMeetings().contains(meetingToRemove2));
+    }
+
+    /**
+     * Test to check if we can get an meeting by ObjectMeeting which is in a database
+     */
+    @Test
+    public void findByObjectWithSuccess() throws MeetingNotFound {
+        Assert.assertEquals(service.findByObject("Code review").getObjectMeeting(), "Code review");
+    }
+
+    /**
+     * Test to check if we can get an meeting by ObjectMeeting which doesn't exist in the database
+     */
+    @Test
+    public void findByObjectWithError() {
+        try {
+            service.findByObject("Coffee Pause");
+        } catch (MeetingNotFound e){
+            Assert.assertNotNull(e);
+        }
+    }
 }
